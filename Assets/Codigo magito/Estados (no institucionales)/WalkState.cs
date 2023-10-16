@@ -11,9 +11,9 @@ public class WalkState : MovementBaseState
 
     public override void UpdateState(MovementStageManager movement)
     {
-        if(Input.GetKey(KeyCode.LeftShift)) movement.SwichState(movement.Run);
+        if(Input.GetKey(KeyCode.LeftShift)) movement.SwichState(movement.currentState);
         else if(Input.GetKeyDown(KeyCode.LeftShift)) ExitState(movement, movement.Crawl);
-        else if(movement.dir.magnitude > 0.1f) ExitState(movement, movement.Idle);
+        else if(movement.dir.magnitude > 0.1f) ExitState(movement, movement.currentState);
 
         if(movement.vInput < 0) movement.currentMoveSpeed = movement.walkBackSpeed;
         else movement.currentMoveSpeed = movement.WalkSpeed;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class MovementStageManager : MonoBehaviour
     public float RunSpeed = 1, RunBackSpeed;
     public float CrouchSpeed = 1, CrouchBackSpeed = 1;
     [HideInInspector] public Vector3 dir;
-    float hzInput, vInput;
+    public float hzInput, vInput;
     [SerializeField] CharacterController controller;
 
     [SerializeField] float groundYOffset;
@@ -19,7 +20,7 @@ public class MovementStageManager : MonoBehaviour
     [SerializeField] float gravity = -9.81f;
     Vector3 velocity;
 
-    MovementBaseState currentState;
+    public MovementBaseState currentState;
 
     public IdleState Idle = new IdleState();
     public WalkState walk = new WalkState();
@@ -30,9 +31,15 @@ public class MovementStageManager : MonoBehaviour
 
     void Start()
     {
+        
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         SwichState(Idle);
+    }
+
+    private void SwichState(IdleState idle)
+    {
+        //throw new NotImplementedException();
     }
 
     // Update is called once per frame
