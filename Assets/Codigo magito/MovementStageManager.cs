@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class MovementStageManager : MonoBehaviour
 {
-    public float moveSpeed = 3;
+    public float currentMoveSpeed;
+    public float WalkSpeed = 1, walkBackSpeed = 1;
+    public float RunSpeed = 1, RunBackSpeed;
+    public float CrouchSpeed = 1, CrouchBackSpeed = 1;
     [HideInInspector] public Vector3 dir;
     float hzInput, vInput;
     [SerializeField] CharacterController controller;
@@ -16,9 +19,20 @@ public class MovementStageManager : MonoBehaviour
     [SerializeField] float gravity = -9.81f;
     Vector3 velocity;
 
+    MovementBaseState currentState;
+
+    public IdleState Idle = new IdleState();
+    public WalkState walk = new WalkState();
+    public CrawlState Crawl = new CrawlState();
+    public RunState Run = new RunState();
+
+    [HideInInspector] public Animator anim;
+
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
+        controller = GetComponent<CharacterController>();
+        SwichState(Idle);
     }
 
     // Update is called once per frame
@@ -26,6 +40,17 @@ public class MovementStageManager : MonoBehaviour
     {
         GetDirectionAndMove();
         Gravity();
+
+        currentState.UpdateState(this);
+
+        anim.SetFloat("hzInput", hzInput);
+        anim.SetFloat("vInput", vInput);
+    }
+
+    public void SwichState(MovementBaseState state)
+    {
+        currentState = state;
+        currentState.EnterState(this);
     }
     void GetDirectionAndMove()
     {
@@ -34,7 +59,7 @@ public class MovementStageManager : MonoBehaviour
 
         dir = transform.forward * vInput + transform.right *hzInput;
 
-        controller.Move(dir * moveSpeed * Time.deltaTime);
+        controller.Move(dir.normalized * currentMoveSpeed * Time.deltaTime);
     }
     bool IsGrounded()
     {
