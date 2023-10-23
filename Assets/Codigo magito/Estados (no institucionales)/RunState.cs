@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunState : MonoBehaviour
+public class RunState : MovementBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void EnterState(MovementStageManager movement)
     {
-        
+        movement.anim.SetBool("Running", true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UpdateState(MovementStageManager movement)
     {
-        
+        if(Input.GetKeyUp(KeyCode.LeftShift)) ExitState(movement, movement.walk);
+        else if (movement.dir.magnitude < 0.1f) ExitState(movement, movement.Idle);
+    }
+
+    void ExitState(MovementStageManager movement, MovementBaseState state)
+    {
+        movement.anim.SetBool("Running", false);
+        movement.SwichState(state);
     }
 }

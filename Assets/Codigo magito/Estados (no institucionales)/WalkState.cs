@@ -6,7 +6,7 @@ public class WalkState : MovementBaseState
 {
     public override void EnterState(MovementStageManager movement)
     {
-        movement.anim.SetBool("walking", true);
+        movement.anim.SetBool("Walking", true);
     }
 
     public override void UpdateState(MovementStageManager movement)
@@ -21,7 +21,7 @@ public class WalkState : MovementBaseState
 
     void ExitState(MovementStageManager movement, MovementBaseState state)
     {
-        movement.anim.SetBool("walking", false);
+        movement.anim.SetBool("Walking", false);
         movement.SwichState(state);
     }
 }

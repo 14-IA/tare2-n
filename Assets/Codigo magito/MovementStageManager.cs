@@ -31,15 +31,15 @@ public class MovementStageManager : MonoBehaviour
 
     void Start()
     {
-        
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         SwichState(Idle);
     }
 
-    private void SwichState(IdleState idle)
+    public void SwichState(MovementBaseState state)
     {
-        //throw new NotImplementedException();
+        currentState = state;
+        currentState.EnterState(this);
     }
 
     // Update is called once per frame
@@ -54,11 +54,6 @@ public class MovementStageManager : MonoBehaviour
         anim.SetFloat("vInput", vInput);
     }
 
-    public void SwichState(MovementBaseState state)
-    {
-        currentState = state;
-        currentState.EnterState(this);
-    }
     void GetDirectionAndMove()
     {
         hzInput = Input.GetAxis("Horizontal");

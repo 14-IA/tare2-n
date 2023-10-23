@@ -6,7 +6,8 @@ public class AimState : AimBaseState
 {
     public override void EnterState(AimStateManager aim)
     {
-        aim.anim.SetBool("nombre de la animacion de disparo", true);
+        aim.anim.SetBool("Aiming", true);
+        aim.currentFov = aim.adsfov;
     }
 
     public override void UpdateState(AimStateManager aim)

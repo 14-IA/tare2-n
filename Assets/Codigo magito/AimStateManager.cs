@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class AimStateManager : MonoBehaviour
 {
@@ -13,9 +14,16 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] Transform camFollowPos;
 
     [HideInInspector] public Animator anim;
+    [HideInInspector] public CinemachineVirtualCamera vCam;
+    public float adsfov = 40;
+    [HideInInspector] public float hipFov;
+    [HideInInspector] public float currentFov;
+    public float fovSmoothSpeed = 10;
 
     void Start()
     {
+        vCam = GetComponentInChildren<CinemachineVirtualCamera>();
+        //hipFov = vCam.m_Lens.FieldOfVie;
         anim = GetComponentInChildren<Animator>();
         SwitchState(Hip);
     }
@@ -26,6 +34,8 @@ public class AimStateManager : MonoBehaviour
         xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
         yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
         yAxis = Mathf.Clamp(yAxis, -80, 80);
+
+      //  vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
 
         currentState.UpdateState(this);
     }

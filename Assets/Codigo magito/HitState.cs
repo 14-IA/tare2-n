@@ -6,8 +6,10 @@ public class HitState : AimBaseState
 {
     public override void EnterState(AimStateManager aim)
     {
-        if(aim != null && aim.anim != null) { 
-            aim.anim.SetBool("nombre de la animacion de disparo", false);
+        if(aim != null && aim.anim != null) 
+        { 
+            aim.anim.SetBool("Aiming", false);
+            aim.currentFov = aim.hipFov;
         }
     }
 
