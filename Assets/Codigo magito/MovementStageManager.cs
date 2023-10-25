@@ -9,7 +9,7 @@ public class MovementStageManager : MonoBehaviour
     public float RunSpeed = 1, RunBackSpeed;
     public float CrouchSpeed = 1, CrouchBackSpeed = 1;
     [HideInInspector] public Vector3 dir;
-    float hzInput, vInput;
+    [HideInInspector] public float hzInput, vInput;
     [SerializeField] CharacterController controller;
 
     [SerializeField] float groundYOffset;
