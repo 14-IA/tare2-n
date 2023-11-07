@@ -14,10 +14,10 @@ public class CrawlState : MovementBaseState
 
     public override void UpdateState(MovementStageManager movement)
     {
-        if(Input.GetKey(KeyCode.LeftShift)) ExitState(movement, movement.Run);
+        if(Input.GetKey(KeyCode.LeftShift)) ExitState(movement, movement.currentState);
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            if(movement.dir.magnitude > 0.1f) ExitState(movement, movement.Idle);
+            if(movement.dir.magnitude > 0.1f) ExitState(movement, movement.currentState);
             else ExitState(movement, movement.walk);
 
             if (movement.vInput < 0) movement.currentMoveSpeed = movement.CrouchBackSpeed;

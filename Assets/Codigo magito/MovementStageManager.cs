@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,11 @@ public class MovementStageManager : MonoBehaviour
     public float RunSpeed = 1, RunBackSpeed;
     public float CrouchSpeed = 1, CrouchBackSpeed = 1;
     [HideInInspector] public Vector3 dir;
+<<<<<<< HEAD
     [HideInInspector] public float hzInput, vInput;
+=======
+    public float hzInput, vInput;
+>>>>>>> 0f47f2a62122153b0cb620096b7c4c88e398360d
     [SerializeField] CharacterController controller;
 
     [SerializeField] float groundYOffset;
@@ -19,7 +24,7 @@ public class MovementStageManager : MonoBehaviour
     [SerializeField] float gravity = -9.81f;
     Vector3 velocity;
 
-    MovementBaseState currentState;
+    public MovementBaseState currentState;
 
     public IdleState Idle = new IdleState();
     public WalkState walk = new WalkState();
@@ -35,6 +40,12 @@ public class MovementStageManager : MonoBehaviour
         SwichState(Idle);
     }
 
+    public void SwichState(MovementBaseState state)
+    {
+        currentState = state;
+        currentState.EnterState(this);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -47,11 +58,6 @@ public class MovementStageManager : MonoBehaviour
         anim.SetFloat("vInput", vInput);
     }
 
-    public void SwichState(MovementBaseState state)
-    {
-        currentState = state;
-        currentState.EnterState(this);
-    }
     void GetDirectionAndMove()
     {
         hzInput = Input.GetAxis("Horizontal");
